@@ -7,11 +7,10 @@ namespace GUI
 	class MainFrame : public wxFrame
 	{
 	public:
-		MainFrame(const wxString& title);
+		MainFrame(const wxString& mainFrameTitle);
 	public:
 		void OnStartBTNClick(wxCommandEvent& evt);
-		void OnSettingsBTNClick(wxCommandEvent& evt);
-		void OnExitBTNClick(wxCommandEvent& evt);
+		void OnHelpBTNClick(wxCommandEvent& evt);
 
 		wxDECLARE_EVENT_TABLE();
 	};
