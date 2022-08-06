@@ -8,6 +8,12 @@ namespace GUI
 	{
 	public:
 		MainFrame(const wxString& title);
+	public:
+		void OnStartBTNClick(wxCommandEvent& evt);
+		void OnSettingsBTNClick(wxCommandEvent& evt);
+		void OnExitBTNClick(wxCommandEvent& evt);
+
+		wxDECLARE_EVENT_TABLE();
 	};
 }
 
