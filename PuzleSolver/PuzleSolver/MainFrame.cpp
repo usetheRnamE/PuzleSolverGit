@@ -1,34 +1,34 @@
 #include "MainFrame.h"
-#include "Color.h"
+#include "Colors.h"
 
 #include <iostream>
 #include <string>
 
-struct ButtonSettings
-{
-	const float w = 200, h = 50;
-	const float gap = 50;
-} mainSett;
-
 namespace GUI
 {
+	struct ButtonSettings
+	{
+		const float w = 200, h = 50;
+		const float gap = 50;
+	} mainSett;
+
 	enum ID // forbiden ID: 0, 1, [4999, 5999]
 	{
-		START_BTN_ID = 2, SETTINGS_BTN_ID, EXIT_BTN_ID,
+		START_BTN_ID = 2, HELP_BTN_ID,
 		NAME_TXT_ID
 	};
 
-	void ButtonSet(wxButton& btn, float scale)
+	template <typename T>
+	void GUI_ElementAdjust(T& GUIelement, float scale, wxColor backgroundColor)
 	{
-		btn.SetBackgroundColour(COLOR.Platinum);
-		btn.SetForegroundColour(COLOR.Green);
-		btn.SetFont(btn.GetFont().Scale(scale));
+		GUIelement.SetBackgroundColour(backgroundColor);
+		GUIelement.SetForegroundColour(COLOR.Yellow);
+		GUIelement.SetFont(GUIelement.GetFont().Scale(scale));
 	}
 
 	wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
 		EVT_BUTTON(START_BTN_ID, MainFrame::OnStartBTNClick)
-		EVT_BUTTON(SETTINGS_BTN_ID, MainFrame::OnSettingsBTNClick)
-		EVT_BUTTON(EXIT_BTN_ID, MainFrame::OnExitBTNClick)
+		EVT_BUTTON(HELP_BTN_ID, MainFrame::OnHelpBTNClick)
 	wxEND_EVENT_TABLE()
 
 
@@ -39,21 +39,16 @@ namespace GUI
 
 		float centerX = 250;
 
-		wxStaticText* nameOfApp = new wxStaticText(mainPanel, NAME_TXT_ID, "Puzle Solver", wxPoint(centerX, 50), wxSize(200, 50), wxBU_RIGHT | wxBU_EXACTFIT);
-		nameOfApp->SetBackgroundColour(COLOR.Black);
-		nameOfApp->SetForegroundColour(COLOR.Yellow);
-		nameOfApp->SetFont(nameOfApp->GetFont().Scale(3));
+		wxStaticText* nameOfApp = new wxStaticText(mainPanel, NAME_TXT_ID, "Puzle Solver", wxPoint(0, 75), wxSize(700, 50), wxBU_RIGHT | wxBU_EXACTFIT);
+		GUI_ElementAdjust(*nameOfApp, 3, COLOR.Black);
+		wxFont fnt = nameOfApp->GetFont();
 
-		wxButton* startButton = new wxButton(mainPanel, START_BTN_ID, "Start", wxPoint(centerX, 100 + mainSett.gap), wxSize(mainSett.w, mainSett.h));
-		ButtonSet(*startButton, 1.5);
+		wxButton* startButton = new wxButton(mainPanel, START_BTN_ID, "Start", wxPoint(centerX, 150 + mainSett.gap), wxSize(mainSett.w, mainSett.h));
+		GUI_ElementAdjust(*startButton, 1.5, COLOR.Silver);
 
-		wxButton* settingButton = new wxButton(mainPanel, SETTINGS_BTN_ID, "Settings", wxPoint(centerX, 200 + mainSett.gap), wxSize(mainSett.w, mainSett.h));
-		ButtonSet(*settingButton, 1.5);
+		wxButton* exitButton = new wxButton(mainPanel, HELP_BTN_ID, "Help", wxPoint(centerX, 250 + mainSett.gap), wxSize(mainSett.w, mainSett.h));
+		GUI_ElementAdjust(*exitButton, 1.5, COLOR.Silver);
 
-		wxButton* exitButton = new wxButton(mainPanel, EXIT_BTN_ID, "Exit", wxPoint(centerX, 300 + mainSett.gap), wxSize(mainSett.w, mainSett.h));
-		ButtonSet(*exitButton, 1.5);
-
-		CreateStatusBar();
 	}
 
 	void MainFrame::OnStartBTNClick(wxCommandEvent& evt)
@@ -61,13 +56,8 @@ namespace GUI
 		wxLogStatus("Started");
 	}
 
-	void MainFrame::OnSettingsBTNClick(wxCommandEvent& evt)
+	void MainFrame::OnHelpBTNClick(wxCommandEvent& evt)
 	{
-		wxLogStatus("Settings");
-	}
-
-	void MainFrame::OnExitBTNClick(wxCommandEvent& evt)
-	{
-		wxLogStatus("Exit");
+		wxLogStatus("Info");
 	}
 }
