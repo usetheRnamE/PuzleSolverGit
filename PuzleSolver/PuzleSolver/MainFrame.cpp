@@ -1,7 +1,5 @@
 #include "MainFrame.h"
-#include "Colors.h"
 #include "ImagePanel.h"
-#include "GUISettings.h"
 #include "Images.h"
 
 #include <iostream>
@@ -26,32 +24,52 @@ namespace GUI
 		ImagePanel* imgMainPanel = new ImagePanel(this, IMG.filePath + IMG.backgroundFileName, wxBITMAP_TYPE_JPEG);
 		imgMainPanel->SetMinClientSize(wxSize(640, 480));
 
-		float centerX = 250;
+		IMG.infoButtonIMG.LoadFile(IMG.filePath + IMG.infoFileName, wxBITMAP_TYPE_PNG);
+		IMG.infoButtonIMG.Rescale(30, 30);
+	//	IMG.infoButtonIMG->SetMaskColour(255, 255, 255);
 
-		IMG.infoButtonIMG.LoadFile(IMG.filePath + IMG.infoFileName, wxBITMAP_TYPE_JPEG);
-		IMG.infoButtonIMG.Rescale(50, 50);
+		//if (IMG.infoButtonIMG.IsOk())
+		//	IMG.infoButtonIMG.SetAlpha(IMG.infoButtonIMG, true);
+
 		wxBitmap infoButtonBitmap(IMG.infoButtonIMG);
+
+		//wxBitmap prepBtnBmp(infoButtonBitmap.GetWidth(), infoButtonBitmap.GetHeight()); // the prepared bmp, to assign to your button
+		//wxMemoryDC memDC(prepBtnBmp);
+		//memDC.SetBackground(*wxTheBrushList->FindOrCreateBrush(*wxWHITE));
+		//memDC.Clear();
+		//memDC.DrawBitmap(infoButtonBitmap, 0, 0);
+		//memDC.SelectObject(wxNullBitmap);
+		/*wxColor white(255, 255, 255, 255);
+		wxMask mask(infoButtonBitmap, white);
+		infoButtonBitmap.SetMask(&mask);*/
+		//bool is = infoButtonBitmap.HasAlpha();
+		//infoButtonBitmap.ResetAlpha();
+		//infoButtonBitmap.UseAlpha(false);
+
+		//wxColor white(255, 255, 255);
+		//wxMask* transparentMask = new wxMask(infoButtonBitmap, white);
+		//infoButtonBitmap.SetMask(transparentMask);
+		//infoButtonBitmap.GetMask();
 
 	//	IMG.infoButtonIMG.LoadFile(IMG.filePath + IMG.startFileName, wxBITMAP_TYPE_JPEG);
 	   // wxBitmap* startButtonBitmap = new wxBitmap(IMG.startButtonIMG);
 
-		wxAnimation appTitleAnim;
+		/*wxAnimation appTitleAnim;
 		appTitleAnim.LoadFile(IMG.fiePathGif + IMG.appTitle, wxANIMATION_TYPE_GIF);
 
-		wxAnimationCtrl* appTitleAnimController = new wxAnimationCtrl(imgMainPanel, NAME_TXT_ID, appTitleAnim, wxPoint(centerX, 150 + mainSett.gap));
-		appTitleAnimController->Play();
+		wxAnimationCtrl* appTitleAnimController = new wxAnimationCtrl(imgMainPanel, NAME_TXT_ID, appTitleAnim, wxPoint(centerX, 150 + mainSett.gap));*/
+	/*	appTitleAnimController->Play();*/
 
 		//wxBitmapButton* startButton = new wxBitmapButton(imgMainPanel, START_BTN_ID, startButtonBitmap, wxPoint(centerX, 150 + mainSett.gap), wxSize(mainSett.w, mainSett.h));	
 
 		wxBitmapButton* infoButton = new wxBitmapButton(imgMainPanel, HELP_BTN_ID, infoButtonBitmap);
+		//infoButton->SetTransparent(true);
 
 		wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-		mainSizer->Add(appTitleAnimController, 1, wxALIGN_CENTER | wxTOP | wxBOTTOM);
+	/*	mainSizer->Add(appTitleAnimController, 1, wxALIGN_CENTER | wxTOP | wxBOTTOM);*/
 	//s	mainSizer->Add(startButton, 1, wxALIGN_CENTER | wxTOP | wxBOTTOM);
-		mainSizer->Add(infoButton, 1, wxALIGN_TOP | wxALIGN_LEFT | wxTOP | wxLEFT);
+		mainSizer->Add(infoButton, 0, wxALIGN_TOP | wxALIGN_LEFT);
 	  
-
-
 
 		imgMainPanel->SetSizer(mainSizer);
 

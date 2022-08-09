@@ -12,7 +12,7 @@ namespace GUI
 		std::string backgroundFileName = "Background.jpg";	
 
 
-		std::string infoFileName = "InfoButton.jpg";
+		std::string infoFileName = "img.png";
 		std::string startFileName = "Start.jpg";
 
 		std::string appTitle = "PuzleSolverTitle.gif";
