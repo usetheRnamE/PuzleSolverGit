@@ -1,22 +1,22 @@
 #pragma once
+
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 
-namespace GUI
+
+namespace CVcore
 {
-
-	struct Images
+	class Images : Files
 	{
-		std::string filePath = "Resources/Images/";
-		std::string fiePathGif = "Resources/Gifs/";
+	private:
+		cv::Size imageSize;
 
-		std::string backgroundFileName = "Background.jpg";	
+	private:
+		void ImageProcessing();
+		void Resize(cv::Mat& currentImage)
 
-
-		std::string infoFileName = "img.png";
-		std::string startFileName = "Start.jpg";
-
-		std::string appTitle = "PuzleSolverTitle.gif";
-
-		wxImage infoButtonIMG, startButtonIMG;
-	} IMG;
+	};
 }
+

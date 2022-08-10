@@ -2,17 +2,14 @@
 #include "ImagePanel.h"
 #include "Images.h"
 
+#include <Files.h>
+
 #include <iostream>
 #include <string>
 #include <wx/animate.h>
 namespace GUI
 {
-	enum ID // forbiden ID: 0, 1, [4999, 5999]
-	{
-		START_BTN_ID = 2, HELP_BTN_ID,
-		NAME_TXT_ID,
-		BACKGROUND_ID
-	};
+
 
 	wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
 		EVT_BUTTON(START_BTN_ID, MainFrame::OnStartBTNClick)
@@ -26,12 +23,15 @@ namespace GUI
 
 		IMG.infoButtonIMG.LoadFile(IMG.filePath + IMG.infoFileName, wxBITMAP_TYPE_PNG);
 		IMG.infoButtonIMG.Rescale(30, 30);
-	//	IMG.infoButtonIMG->SetMaskColour(255, 255, 255);
+
+		IMG.startButtonIMG.LoadFile(IMG.filePath + IMG.startFileName, wxBITMAP_TYPE_PNG);
+		IMG.startButtonIMG.Rescale(360, 360);
+		//IMG.infoButtonIMG->SetMaskColour(255, 255, 255);
 
 		//if (IMG.infoButtonIMG.IsOk())
 		//	IMG.infoButtonIMG.SetAlpha(IMG.infoButtonIMG, true);
 
-		wxBitmap infoButtonBitmap(IMG.infoButtonIMG);
+		wxBitmap infoButtonBitmap(IMG.infoButtonIMG), startButtonBitmap(IMG.startButtonIMG);
 
 		//wxBitmap prepBtnBmp(infoButtonBitmap.GetWidth(), infoButtonBitmap.GetHeight()); // the prepared bmp, to assign to your button
 		//wxMemoryDC memDC(prepBtnBmp);
@@ -60,30 +60,32 @@ namespace GUI
 		wxAnimationCtrl* appTitleAnimController = new wxAnimationCtrl(imgMainPanel, NAME_TXT_ID, appTitleAnim, wxPoint(centerX, 150 + mainSett.gap));*/
 	/*	appTitleAnimController->Play();*/
 
-		//wxBitmapButton* startButton = new wxBitmapButton(imgMainPanel, START_BTN_ID, startButtonBitmap, wxPoint(centerX, 150 + mainSett.gap), wxSize(mainSett.w, mainSett.h));	
+		wxBitmapButton* startButton = new wxBitmapButton(imgMainPanel, START_BTN_ID, startButtonBitmap);	
 
 		wxBitmapButton* infoButton = new wxBitmapButton(imgMainPanel, HELP_BTN_ID, infoButtonBitmap);
 		//infoButton->SetTransparent(true);
 
 		wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 	/*	mainSizer->Add(appTitleAnimController, 1, wxALIGN_CENTER | wxTOP | wxBOTTOM);*/
-	//s	mainSizer->Add(startButton, 1, wxALIGN_CENTER | wxTOP | wxBOTTOM);
 		mainSizer->Add(infoButton, 0, wxALIGN_TOP | wxALIGN_LEFT);
+		mainSizer->Add(startButton, 0, wxALIGN_CENTER | wxTOP | wxBOTTOM);
 	  
 
 		imgMainPanel->SetSizer(mainSizer);
 
 		mainSizer->Layout();
-	}
-
+	}	 
+		
 	void MainFrame::OnStartBTNClick(wxCommandEvent& evt)
 	{
-		wxLogStatus("Started");
-		//evt.Skip();
+		CVcore::Files file;
+		file.LoadFiles();
+		evt.Skip();
 	}
 
 	void MainFrame::OnHelpBTNClick(wxCommandEvent& evt)
 	{
 		wxLogStatus("Info");
+		evt.Skip();
 	}
 }
