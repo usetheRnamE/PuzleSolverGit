@@ -1,9 +1,8 @@
 #pragma once
-#include <iostream>
 
+#include <wx/wx.h>
 namespace GUI
 {
-
 	struct Images
 	{
 		std::string filePath = "Resources/Images/";
