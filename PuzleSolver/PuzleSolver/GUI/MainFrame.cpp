@@ -1,6 +1,6 @@
 #include "MainFrame.h"
 #include "ImagePanel.h"
-#include "Images.h"
+#include "GUIImages.h"
 
 #include <Files.h>
 
@@ -18,14 +18,31 @@ namespace GUI
 
 	MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title)
 	{
-		ImagePanel* imgMainPanel = new ImagePanel(this, IMG.filePath + IMG.backgroundFileName, wxBITMAP_TYPE_JPEG);
+		ImagePanel* imgMainPanel = nullptr;
+		try
+		{
+			imgMainPanel = new ImagePanel(this, IMG.filePath + IMG.backgroundFileName, wxBITMAP_TYPE_JPEG);
+			IMG.infoButtonIMG.LoadFile(IMG.filePath + IMG.infoFileName, wxBITMAP_TYPE_PNG);
+			IMG.startButtonIMG.LoadFile(IMG.filePath + IMG.startFileName, wxBITMAP_TYPE_PNG);
+
+			if (imgMainPanel == nullptr)
+				printf("Error: Panel is nullptr\n");
+			else if (!IMG.infoButtonIMG.IsOk())
+				printf("Error: Info button image is nullptr\n");
+			else if (!IMG.startButtonIMG.IsOk())
+				printf("Error: start button image is nullptr\n");
+		}
+		catch (std::exception e)
+		{
+			printf("Exception: [%s]\n", e.what());
+		}
+
 		imgMainPanel->SetMinClientSize(wxSize(640, 480));
 
-		IMG.infoButtonIMG.LoadFile(IMG.filePath + IMG.infoFileName, wxBITMAP_TYPE_PNG);
 		IMG.infoButtonIMG.Rescale(30, 30);
 
-		IMG.startButtonIMG.LoadFile(IMG.filePath + IMG.startFileName, wxBITMAP_TYPE_PNG);
 		IMG.startButtonIMG.Rescale(360, 360);
+
 		//IMG.infoButtonIMG->SetMaskColour(255, 255, 255);
 
 		//if (IMG.infoButtonIMG.IsOk())
