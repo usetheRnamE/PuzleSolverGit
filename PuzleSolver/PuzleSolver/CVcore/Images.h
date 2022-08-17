@@ -10,7 +10,7 @@ namespace CVcore
 	class Images 
 	{
 	private:
-		const cv::Size imageSize = cv::Size(100, 100);
+		const cv::Size imageSize = cv::Size(500, 500);
 
 	public:
 		void ImageProcessing(cv::Mat(&images)[6]);
